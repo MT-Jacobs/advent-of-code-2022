@@ -1,12 +1,12 @@
 import Shape.*
-import Strategy.*
+import GameState.*
 
 fun main() {
     fun part1(input: List<String>): Int {
         return input.map {
             it[0].toShape() to it[2].toShape()
         }.sumOf { (theirShape, myShape) ->
-            myShape.scoreAgainst(theirShape) + myShape.score
+            myShape.evaluateAgainst(theirShape).score + myShape.score
         }
     }
 
@@ -33,7 +33,7 @@ enum class Shape(val score: Int) {
     ROCK(1), PAPER(2), SCISSORS(3)
 }
 
-enum class Strategy(val score: Int)  {
+enum class GameState(val score: Int)  {
     LOSE(0), DRAW(3), WIN(6)
 }
 
@@ -44,39 +44,39 @@ fun Char.toShape(): Shape = when(this) {
     else -> throw RuntimeException("Bad letter.")
 }
 
-fun Char.toStrategy(): Strategy = when(this) {
+fun Char.toStrategy(): GameState = when(this) {
     'X' -> LOSE
     'Y' -> DRAW
     'Z' -> WIN
     else -> throw RuntimeException("Bad letter.")
 }
 
-fun Shape.scoreAgainst(otherShape: Shape): Int =
+fun Shape.evaluateAgainst(otherShape: Shape): GameState =
     when (this) {
         ROCK -> {
             when (otherShape) {
-                ROCK -> 3
-                PAPER -> 0
-                SCISSORS -> 6
+                ROCK -> DRAW
+                PAPER -> LOSE
+                SCISSORS -> WIN
             }
         }
         PAPER -> {
             when (otherShape) {
-                ROCK -> 6
-                PAPER -> 3
-                SCISSORS -> 0
+                ROCK -> WIN
+                PAPER -> DRAW
+                SCISSORS -> LOSE
             }
         }
         SCISSORS -> {
             when (otherShape) {
-                ROCK -> 0
-                PAPER -> 6
-                SCISSORS -> 3
+                ROCK -> LOSE
+                PAPER -> WIN
+                SCISSORS -> DRAW
             }
         }
     }
 
-fun Shape.chooseStrategy(strategy: Strategy): Shape =
+fun Shape.chooseStrategy(strategy: GameState): Shape =
     when (this) {
         ROCK -> {
             when (strategy) {
