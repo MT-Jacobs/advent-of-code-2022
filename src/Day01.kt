@@ -26,29 +26,3 @@ fun main() {
     println(part1(input))
     println(part2(input))
 }
-
-fun <T> Sequence<T?>.chunkByNotNull(): Sequence<List<T>> = sequence {
-    var grouping = mutableListOf<T>()
-    for (item in iterator()) {
-        if (item != null) {
-            grouping.add(item)
-        } else {
-            yield(grouping)
-            grouping = mutableListOf()
-        }
-    }
-    yield(grouping)
-}
-
-fun <T> Sequence<T>.chunkByPredicate(predicate: (T) -> Boolean): Sequence<List<T>> = sequence {
-    var grouping = mutableListOf<T>()
-    for (item in iterator()) {
-        if (predicate(item)) {
-            grouping.add(item)
-        } else {
-            yield(grouping)
-            grouping = mutableListOf()
-        }
-    }
-    yield(grouping)
-}
