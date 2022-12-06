@@ -8,7 +8,13 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return input.asSequence()
+            .map { it.toIntOrNull() }
+            .chunkByNotNull()
+            .map { it.sum() }
+            .sortedDescending()
+            .take(3)
+            .sum()
     }
 
     // test if implementation meets criteria from the description, like:
