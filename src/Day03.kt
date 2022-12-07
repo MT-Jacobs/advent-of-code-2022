@@ -1,10 +1,10 @@
 fun main() {
     fun part1(input: List<String>): Int {
         return input.sumOf {
-            val splitString = it.toList().chunked(it.length / 2).map(List<Char>::toSet)
+            val splitString: Pair<List<Char>, List<Char>> = it.halve()
             // since we converted to a set, technically we've destroyed some info about the comparments' contents
-            val leftCompartment = splitString[0]
-            val rightCompartment = splitString[1]
+            val leftCompartment = splitString.first.toSet()
+            val rightCompartment = splitString.second.toSet()
             val commonSet = leftCompartment.intersect(rightCompartment)
             assert(commonSet.size == 1) { "yo elf you lied to me about comparments having a single common val" }
             commonSet.first().priority()
@@ -12,7 +12,16 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return input.map { it.toSet() }
+            .chunked(3)
+            .sumOf {
+                val first = it[0]
+                val second = it[1]
+                val third = it[2]
+                val commonSet = first.intersect(second).intersect(third)
+                assert(commonSet.size == 1) { "yo elf you lied to me about elves having a common val" }
+                commonSet.first().priority()
+            }
     }
 
     // test if implementation meets criteria from the description, like:

@@ -40,3 +40,8 @@ fun <T> Sequence<T>.chunkByPredicate(predicate: (T) -> Boolean): Sequence<List<T
     }
     yield(grouping)
 }
+
+fun String.halve(): Pair<List<Char>, List<Char>> {
+    val splitString = this.toList().chunked(this.length / 2)
+    return splitString[0] to splitString[1]
+}
