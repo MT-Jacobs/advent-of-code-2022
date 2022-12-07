@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+
 plugins {
     kotlin("jvm") version "1.7.22"
 }
@@ -17,3 +20,10 @@ tasks {
         gradleVersion = "7.6"
     }
 }
+
+
+//tasks.withType<KotlinCompile>().configureEach {
+//    kotlinOptions {
+//        languageVersion = "1.9"
+//    }
+//}
