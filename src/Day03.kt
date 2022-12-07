@@ -35,7 +35,7 @@ fun main() {
 }
 
 private val priorityMap: List<Char> = ('a'..'z') + ('A'..'Z')
-fun Char.priority(): Int {
+private fun Char.priority(): Int {
     val result = priorityMap.indexOf(this) + 1
     assert(result != 0) { "yo elf you didn't give me a char in your rucksack" }
     return result
