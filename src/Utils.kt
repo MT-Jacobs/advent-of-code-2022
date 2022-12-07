@@ -45,3 +45,9 @@ fun String.halve(): Pair<List<Char>, List<Char>> {
     val splitString = this.toList().chunked(this.length / 2)
     return splitString[0] to splitString[1]
 }
+
+fun IntRange.within(otherRange: IntRange): Boolean =
+    otherRange.first <= this.first && otherRange.last >= this.last
+
+fun IntRange.overlaps(otherRange: IntRange): Boolean =
+    this.first <= otherRange.last && this.last >= otherRange.first
