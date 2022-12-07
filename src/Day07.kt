@@ -5,7 +5,14 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val system: Filesystem = traverseInfo(input)
+        val totalSpace = 70000000
+        val requiredSpace = 30000000
+        val usedSpace = system.root.dataSize
+        val availableSpace = totalSpace - usedSpace
+        val neededSpaceToClear = requiredSpace - (availableSpace)
+
+        return system.directories.map { it.dataSize }.filter { it >= neededSpaceToClear }.minOrNull() ?: 0
     }
 
     // test if implementation meets criteria from the description, like:
