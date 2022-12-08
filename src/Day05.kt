@@ -20,7 +20,6 @@ fun main() {
                         yield(stacks[sourceIndex].removeFirst())
                     }
                 }.toList().reversed()
-                stacks[destIndex].addAll(liftedStack)
                 liftedStack.forEach { box ->
                     stacks[destIndex].addFirst(box)
                 }
